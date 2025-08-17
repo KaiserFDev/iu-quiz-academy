@@ -1,0 +1,32 @@
+.quiz-layout-container {
+    display: flex; /* Nutzt Flexbox für das Hauptlayout */
+    flex-wrap: wrap; /* Erlaubt den Boxen, bei Platzmangel in die nächste Zeile zu springen */
+    justify-content: center; /* Zentriert die Boxen horizontal */
+    align-items: flex-start; /* Richtet die Elemente am oberen Rand aus */
+    gap: 30px; /* Abstand zwischen den Haupt-Content-Boxen */
+    padding: 30px; /* Innenabstand um das gesamte Layout */
+    min-height: calc(100vh - 60px); /* Mindesthöhe */
+    box-sizing: border-box;
+    background-color: #f7f9fc; /* Leichter Hintergrund */
+}
+
+/* Styling für den Haupttitel (z.B. "Geschafft! Quiz beendet...") */
+.primary-content-box .main-message {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.primary-content-box .sub-message {
+    font-size: 1.1em;
+    color: #616161;
+    margin-bottom: 40px;
+}
+
+/* Styling für das IU Quiz Academy Logo im Hauptbereich */
+.primary-content-box .quiz-logo-large {
+    max-width: 250px; /* Oder eine feste Breite passend zum Bild */
+    height: auto;
+    margin-bottom: 40px;
+}

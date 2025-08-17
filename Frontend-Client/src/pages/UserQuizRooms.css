@@ -1,0 +1,100 @@
+.user-quizrooms-page {
+  display: flex;
+  flex-direction: row; /* horizontal nebeneinander */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px 0;
+  max-width: 1100px; /* gleiche Breite wie MainPage-Content */
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .user-quizrooms-page {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    max-width: 95vw;
+  }
+}
+
+.section-title {
+  color: #ffc107;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.primary-content-box[customborder="yellow"] {
+  border-left: 4px solid #ffc107;
+}
+
+.primary-content-box[customborder="blue"] {
+  border-left: 4px solid #2563EB;
+}
+
+.error-message {
+  color: #d32f2f;
+  background: #fffbe6;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.empty-message {
+  color: #616161;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.blue-title {
+  color: #2563EB;
+}
+
+.option-field-group.blue {
+  /* Blaue Boxen für öffentliche QuizRooms */
+}
+
+.option-item.blue {
+  background-color: #2563EB;
+  color: #fff;
+  border: 1px solid #2563EB;
+}
+
+.option-item.blue:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.quizroom-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.add-quizroom-icon {
+  cursor: pointer;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.15s;
+}
+
+.add-quizroom-icon:active {
+  transform: scale(0.95);
+}
+
+
+
+.add-quizroom-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 32px;
+}

@@ -1,0 +1,24 @@
+/* ========================================= */
+/* 1. Globales Layout und Container          */
+/* ========================================= */
+.quiz-layout-container {
+    display: flex;
+    flex-wrap: wrap; /* Erlaubt das Umbrechen auf die nächste Zeile bei kleineren Bildschirmen */
+    justify-content: center; /* Zentriert die Boxen horizontal im Container */
+    align-items: flex-start; /* <<< WICHTIG: Richtet die Items am oberen Rand des Containers aus */
+    gap: 30px; /* Abstand zwischen den Boxen */
+    padding: 30px;
+    min-height: calc(100vh - 60px); /* Stellt sicher, dass der Container mindestens die Höhe des Viewports hat */
+    box-sizing: border-box;
+    background-color: #f7f9fc;
+}
+
+/* --- Globale Einstellungen (WICHTIG für konsistentes Box-Modell) --- */
+html {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+

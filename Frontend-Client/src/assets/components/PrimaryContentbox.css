@@ -1,0 +1,141 @@
+/* ========================================= */
+/* 1. Globales Layout und Container          */
+/* ========================================= */
+.quiz-layout-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+    background-color: #f7f9fc;
+}
+
+/* ========================================= */
+/* 2. Basis-Styling für Content-Boxen        */
+/* ========================================= */
+.content-box {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Inhalte untereinander anordnen */
+    align-items: center; /* Zentriert Inhalte horizontal innerhalb der Box (für ResultPage) */
+    text-align: center; /* Text zentrieren (für ResultPage) */
+    border-left: 4px solid var(--secondary-yellow);
+}
+
+/* ========================================= */
+/* 3. Spezifisches Styling für PrimaryContentBox (2/3 Layout) */
+/* ========================================= */
+.primary-content-box {
+    flex: 2;
+    min-width: 600px;
+    /*max-width: 65%;*/
+    padding-top: 50px; /* Mehr Platz oben für den Titel-Bereich im Ergebnis-Bild */
+    padding-bottom: 50px; /* Mehr Platz unten für Buttons */
+}
+
+/* Styling für die Fragen-Nummer (z.B. "3 von 7" im Quiz-Modus) */
+.primary-content-box .question-number-top {
+    font-size: 1.1em;
+    color: #616161;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Styling für die eigentliche Frage (z.B. "Welcher SQL-Befehl..." im Quiz-Modus) */
+.primary-content-box .question-text {
+    font-size: 1.4em;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Styling für den Haupttitel (z.B. "Geschafft! Quiz beendet..." im Ergebnis-Modus) */
+.primary-content-box .main-message {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Styling für den Untertitel (z.B. "Sieh dir deinen Score..." im Ergebnis-Modus) */
+.primary-content-box .sub-message {
+    font-size: 1.1em;
+    color: #616161;
+    margin-bottom: 40px;
+}
+
+/* Styling für das IU Quiz Academy Logo im Hauptbereich (Ergebnis-Modus) */
+.primary-content-box .quiz-logo-large {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+/* Styling für die Input-Felder in der New*/
+.input-group {
+    width: 100%;
+    margin-bottom: 20px; /* Abstand zwischen den Input-Gruppen */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Label und Input links ausrichten */
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.input-group input[type="text"],
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Padding und Border werden in die Breite einbezogen */
+    transition: border-color 0.2s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group select:focus {
+    border-color: #ffc107; /* Gelber Rand beim Fokus */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+.primary-content-box .button-group {
+    margin-top: 30px; /* Abstand der Buttons von den Inputfeldern */
+}
+
+.primary-content-box .saved-quiz-room-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.primary-content-box.border-blue {
+    border-left: 4px solid #2563EB !important;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.primary-content-box.border-yellow {
+    border-left: 4px solid #ffc107 !important;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
