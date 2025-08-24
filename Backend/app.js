@@ -10,21 +10,19 @@ const authenticateToken = require('./middlewares/authenticateToken');
 const app = express();
 
 // CORS-Middleware ganz am Anfang
+app.use(requestLogger);
+app.use(express.json());
 app.use(cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
   credentials: true,
-  methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
 
 // Preflight-Requests explizit beantworten
 app.options('*', cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
   credentials: true,
-  methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
 
-app.use(requestLogger);
-app.use(express.json());
 
 registerRoutes(app); // Hier sollten Router inkl. AuthMiddleware korrekt gemountet sein
 
