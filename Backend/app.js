@@ -13,16 +13,14 @@ const app = express();
 app.use(cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
   credentials: true,
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
- // allowedHeaders: 'Content-Type,Authorization'
+  methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
 
 // Preflight-Requests explizit beantworten
 app.options('*', cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
   credentials: true,
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
- // allowedHeaders: 'Content-Type,Authorization'
+  methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
 
 app.use(requestLogger);
