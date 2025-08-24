@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -9,13 +10,24 @@ const authenticateToken = require('./middlewares/authenticateToken');
 
 const app = express();
 
-// Middleware
-app.use(requestLogger);
-app.use(express.json());
+// CORS-Middleware ganz am Anfang
 app.use(cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// Preflight-Requests explizit beantworten
+app.options('*', cors({
+  origin: 'https://iu-quiz-academy-frontend.onrender.com',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.use(requestLogger);
+app.use(express.json());
 
 registerRoutes(app); // Hier sollten Router inkl. AuthMiddleware korrekt gemountet sein
 
