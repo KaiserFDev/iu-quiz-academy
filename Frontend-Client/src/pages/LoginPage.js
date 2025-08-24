@@ -19,7 +19,7 @@ const handleLogin = async (e) => {
 
   try {
     // Anfrage an das Backend senden (Login-API)
-    const response = await fetch('/api/users/login', {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/login`, {
       method: 'POST', // POST, da wir Daten (username + password) senden
       headers: { 'Content-Type': 'application/json' }, // JSON-Daten werden geschickt
       body: JSON.stringify({ username, password }), // Benutzerdaten in JSON umwandeln
