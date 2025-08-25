@@ -1,8 +1,12 @@
+
 import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import TAGS from '../assets/components/TAGS';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
 
 // Import der ausgelagerten Komponenten
 import NavBar from '../assets/components/NavBar';
@@ -22,7 +26,7 @@ function MainPage() {
     if (!userId) return;
 
     // Lade alle QuizRooms und baue ein Mapping quizRoomId -> title
-    axios.get('/api/quizrooms')
+    axios.get(`${API_BASE}/api/quizrooms`)
       .then(res => {
         const map = {};
         res.data.forEach(room => {
@@ -32,7 +36,7 @@ function MainPage() {
       });
 
     // Lade Userdaten
-    fetch(`/api/users/${userId}`)
+    fetch(`${API_BASE}/api/users/${userId}`)
       .then(res => res.json())
       .then(data => {
         setUserName(data.username || '');
@@ -42,7 +46,7 @@ function MainPage() {
       });
 
     // Lade letzte Session
-    fetch(`/api/sessions/last?userId=${userId}`)
+    fetch(`${API_BASE}/api/sessions/last?userId=${userId}`)
       .then(res => res.json())
       .then(data => {
         setLastSession(data);
@@ -52,7 +56,7 @@ function MainPage() {
       });
 
     // Lade alle Sessions des Users
-    axios.get(`/api/quizsessions/userroom?userId=${userId}`)
+    axios.get(`${API_BASE}/api/quizsessions/userroom?userId=${userId}`)
       .then(res => setUserSessions(res.data))
       .catch(() => setUserSessions([]));
   }, [userId]);
