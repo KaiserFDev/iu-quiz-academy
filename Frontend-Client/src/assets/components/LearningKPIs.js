@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './LearningKPIs.css';
 
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
+
 function LearningKPIs({ userId }) {
   const [stats, setStats] = useState({
     totalQuizzes: 0,
@@ -12,7 +15,7 @@ function LearningKPIs({ userId }) {
     if (!userId) return;
     async function fetchStats() {
       try {
-        const response = await fetch(`http://localhost:3000/api/statistics?userId=${userId}`);
+        const response = await fetch(`${API_BASE}/api/statistics?userId=${userId}`);
         const data = await response.json();
         setStats(data);
       } catch (error) {
