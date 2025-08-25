@@ -17,11 +17,11 @@ app.use(cors({
   credentials: true,
 }));
 
-// Preflight-Requests explizit beantworten
+/* Preflight-Requests explizit beantworten
 app.options('*', cors({
   origin: 'https://iu-quiz-academy-frontend.onrender.com',
   credentials: true,
-}));
+}));*/
 
 
 registerRoutes(app); // Hier sollten Router inkl. AuthMiddleware korrekt gemountet sein
