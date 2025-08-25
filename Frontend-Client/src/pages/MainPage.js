@@ -5,15 +5,15 @@ import TAGS from '../assets/components/TAGS';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-// API-Basis-URL aus Umgebungsvariable
-const API_BASE = process.env.REACT_APP_API_URL;
-
 // Import der ausgelagerten Komponenten
 import NavBar from '../assets/components/NavBar';
 import Header from '../assets/components/Header';
 import LearningKPIs from '../assets/components/LearningKPIs';
 import CommunityBox from '../assets/components/CommunityBox';
-//
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
+
 function MainPage() {
   const [userName, setUserName] = useState('');
   const [lastSession, setLastSession] = useState(null);
