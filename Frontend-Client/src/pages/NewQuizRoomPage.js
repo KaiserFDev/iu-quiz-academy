@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import NavBar from '../assets/components/NavBar';
@@ -7,6 +8,9 @@ import SecondaryContentBox from '../assets/components/SecondaryContentbox';
 import ButtonGroup from '../assets/components/ButtonGroup';
 import './NewQuizRoomPage.css'; 
 import { useHttpClient } from '../assets/hooks/http-hook';
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
 
 const generateUniqueId = () => Math.random().toString(36).substring(2, 9);
 
@@ -38,7 +42,7 @@ function NewQuizRoomPage() {
     if (quizRoomTitle.trim().length >= 3 && !quizRoomSaved) {
       try {
         const quizRoomResponse = await sendRequest(
-          'http://localhost:5000/api/quizrooms',
+          `${API_BASE}/api/quizrooms`,
           'POST',
           JSON.stringify({
             title: quizRoomTitle,
@@ -101,7 +105,7 @@ function NewQuizRoomPage() {
       if (editMode) {
         // 1. Frage updaten
         await sendRequest(
-          `http://localhost:5000/api/questions/${questionId}`,
+          `${API_BASE}/api/questions/${questionId}`,
           'PUT',
           JSON.stringify({
             questionText: currentQuestion.questionText,
@@ -113,29 +117,29 @@ function NewQuizRoomPage() {
 
         // 2. Antwortoptionen updaten
         const options = await sendRequest(
-          `http://localhost:5000/api/answeroptions/question/${questionId}`,
+          `${API_BASE}/api/answeroptions/question/${questionId}`,
           'GET'
         );
         for (let i = 0; i < options.length; i++) {
-          await sendRequest(
-            `http://localhost:5000/api/answeroptions/${options[i].id}`,
-            'PUT',
-            JSON.stringify({
-              optionText: currentQuestion.answers[i],
-              optionIndex: i
-            }),
-            { 'Content-Type': 'application/json' }
-          );
+            await sendRequest(
+              `${API_BASE}/api/answeroptions/${options[i].id}`,
+              'PUT',
+              JSON.stringify({
+                optionText: currentQuestion.answers[i],
+                optionIndex: i
+              }),
+              { 'Content-Type': 'application/json' }
+            );
         }
 
         // 3. Begründung updaten (nur wenn vorhanden)
         const reasons = await sendRequest(
-          `http://localhost:5000/api/reasons/question/${questionId}`,
+          `${API_BASE}/api/reasons/question/${questionId}`,
           'GET'
         );
         if (reasons.length > 0) {
           await sendRequest(
-            `http://localhost:5000/api/reasons/${reasons[0].id}`,
+            `${API_BASE}/api/reasons/${reasons[0].id}`,
             'PUT',
             JSON.stringify({
               reasonText: currentQuestion.answerExplanation,
@@ -146,7 +150,7 @@ function NewQuizRoomPage() {
         } else if (currentQuestion.answerExplanation && currentQuestion.answerExplanation.trim().length > 0) {
           // Falls keine Begründung existiert, neu anlegen
           await sendRequest(
-            'http://localhost:5000/api/reasons',
+            `${API_BASE}/api/reasons`,
             'POST',
             JSON.stringify({
               questionId: questionId,
@@ -183,7 +187,7 @@ function NewQuizRoomPage() {
 
       // 1. Frage anlegen
       const questionResponse = await sendRequest(
-        'http://localhost:5000/api/questions',
+        `${API_BASE}/api/questions`,
         'POST',
         JSON.stringify({
           quizRoomId: quizRoomId,
@@ -197,7 +201,7 @@ function NewQuizRoomPage() {
       // 2. Antwortoptionen anlegen
       for (let i = 0; i < currentQuestion.answers.length; i++) {
         await sendRequest(
-          'http://localhost:5000/api/answeroptions',
+          `${API_BASE}/api/answeroptions`,
           'POST',
           JSON.stringify({
             questionId: questionId,
@@ -211,7 +215,7 @@ function NewQuizRoomPage() {
       // 3. Begründung zur richtigen Antwort speichern
       if (currentQuestion.answerExplanation && currentQuestion.answerExplanation.trim().length > 0) {
         await sendRequest(
-          'http://localhost:5000/api/reasons',
+          `${API_BASE}/api/reasons`,
           'POST',
           JSON.stringify({
             questionId: questionId,
@@ -254,35 +258,35 @@ function NewQuizRoomPage() {
     try {
       // 1. Begründungen zur Frage löschen
       await sendRequest(
-        `http://localhost:5000/api/reasons/question/${questionId}`,
+        `${API_BASE}/api/reasons/question/${questionId}`,
         'GET'
       );
       const reasons = await sendRequest(
-        `http://localhost:5000/api/reasons/question/${questionId}`,
+        `${API_BASE}/api/reasons/question/${questionId}`,
         'GET'
       );
       for (const reason of reasons) {
         await sendRequest(
-          `http://localhost:5000/api/reasons/${reason.id}`,
+          `${API_BASE}/api/reasons/${reason.id}`,
           'DELETE'
         );
       }
 
       // 2. Antwortoptionen zur Frage löschen
       const options = await sendRequest(
-        `http://localhost:5000/api/answeroptions/question/${questionId}`,
+        `${API_BASE}/api/answeroptions/question/${questionId}`,
         'GET'
       );
       for (const option of options) {
         await sendRequest(
-          `http://localhost:5000/api/answeroptions/${option.id}`,
+          `${API_BASE}/api/answeroptions/${option.id}`,
           'DELETE'
         );
       }
 
       // 3. Frage selbst löschen
       await sendRequest(
-        `http://localhost:5000/api/questions/${questionId}`,
+        `${API_BASE}/api/questions/${questionId}`,
         'DELETE'
       );
 

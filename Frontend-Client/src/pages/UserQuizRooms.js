@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import PrimaryContentbox from '../assets/components/PrimaryContentbox';
 import OptionFieldGroup from '../assets/components/OptionfieldGroup';
@@ -8,6 +9,9 @@ import './UserQuizRooms.css';
 import { useHttpClient } from '../assets/hooks/http-hook';
 import TAGS from '../assets/components/TAGS';
 import axios from 'axios';
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
 
 function UserQuizRooms() {
   const [userQuizRooms, setUserQuizRooms] = useState([]);
@@ -21,7 +25,7 @@ function UserQuizRooms() {
   useEffect(() => {
     async function fetchQuizRooms() {
       try {
-        const allRooms = await sendRequest('http://localhost:5000/api/quizrooms');
+        const allRooms = await sendRequest(`${API_BASE}/api/quizrooms`);
         const myRooms = allRooms.filter(
           room =>
             room.creator &&
@@ -50,7 +54,7 @@ function UserQuizRooms() {
       await Promise.all(
         publicQuizRooms.map(async (room) => {
           try {
-            const res = await axios.get(`/api/quizsessions/userroom?quizRoomId=${room.id}`);
+            const res = await axios.get(`${API_BASE}/api/quizsessions/userroom?quizRoomId=${room.id}`);
             // Filter auf die letzten 24h
             const filtered = res.data.filter(session => {
               const lastAction = new Date(session.lastAction);

@@ -7,7 +7,10 @@ import ButtonGroup from '../assets/components/ButtonGroup';
 import NavBar from '../assets/components/NavBar';
 import OptionfieldGroup from '../assets/components/OptionfieldGroup';
 import { useHttpClient } from '../assets/hooks/http-hook';
+
 import TAGS from '../assets/components/TAGS';
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
 
 function QuizSession() {
   const location = useLocation();
@@ -41,11 +44,11 @@ function QuizSession() {
       if (!sessionId && quizRoomId) {
         try {
           // Lade Fragen, um maxScore zu berechnen
-          const questionsData = await sendRequest(`http://localhost:5000/api/questions/room/${quizRoomId}`);
+          const questionsData = await sendRequest(`${API_BASE}/api/questions/room/${quizRoomId}`);
           const maxScore = Array.isArray(questionsData) ? questionsData.length * 100 : 0;
 
           const data = await sendRequest(
-            'http://localhost:5000/api/quizsessions',
+            `${API_BASE}/api/quizsessions`,
             'POST',
             JSON.stringify({
               userId: parseInt(userId, 10),
@@ -76,7 +79,7 @@ function QuizSession() {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const data = await sendRequest(`http://localhost:5000/api/questions/room/${quizRoomId}`);
+          const data = await sendRequest(`${API_BASE}/api/questions/room/${quizRoomId}`);
         setQuestions(Array.isArray(data) ? data : []);
         // Nur auf 0 setzen, wenn NICHT Resume
         if (!(location.state?.resume && location.state.currentQuestion !== undefined)) {
@@ -96,7 +99,7 @@ function QuizSession() {
       const qid = questions[currentIdx]?.id;
       if (!qid) return;
       try {
-        const data = await sendRequest(`http://localhost:5000/api/answeroptions/question/${qid}`);
+  const data = await sendRequest(`${API_BASE}/api/answeroptions/question/${qid}`);
         setOptions(data);
       } catch (err) {
         setOptions([]);
@@ -110,7 +113,7 @@ function QuizSession() {
     async function fetchRoom() {
       if (!quizRoomId) return;
       try {
-        const data = await sendRequest(`http://localhost:5000/api/quizrooms/${quizRoomId}`);
+  const data = await sendRequest(`${API_BASE}/api/quizrooms/${quizRoomId}`);
         setQuizRoomTitle(data.title);
       } catch (err) { }
     }
@@ -124,7 +127,7 @@ function QuizSession() {
       const qid = questions[currentIdx]?.id;
       if (!qid) return;
       try {
-        const reasons = await sendRequest(`http://localhost:5000/api/reasons/question/${qid}`);
+  const reasons = await sendRequest(`${API_BASE}/api/reasons/question/${qid}`);
         const correctIdx = questions[currentIdx]?.correctAnswerIndex;
         const reasonObj = reasons.find(r => r.reasonIndex === correctIdx);
         setAnswerExplanation(reasonObj ? reasonObj.reasonText : '');
@@ -149,7 +152,7 @@ function QuizSession() {
     async function fetchSession() {
       if (!sessionId) return;
       try {
-        const sessionData = await sendRequest(`http://localhost:5000/api/quizsessions/${sessionId}`);
+        const sessionData = await sendRequest(`${API_BASE}/api/quizsessions/${sessionId}`);
         setQuizRoomId(sessionData.quizRoomId);
         setMode(sessionData.public ? 'publicquiz' : 'quiz'); // Modus aus DB setzen
       } catch (err) { }
@@ -214,7 +217,7 @@ function QuizSession() {
     if (isCorrect && sessionId) {
       try {
         const data = await sendRequest(
-          `http://localhost:5000/api/quizsessions/${sessionId}/score`,
+          `${API_BASE}/api/quizsessions/${sessionId}/score`,
           'PATCH',
           JSON.stringify({ addScore: 100 }),
           { 'Content-Type': 'application/json' }
@@ -226,7 +229,7 @@ function QuizSession() {
     if (sessionId) {
       try {
         await sendRequest(
-          `http://localhost:5000/api/quizsessions/${sessionId}/lastaction`,
+          `${API_BASE}/api/quizsessions/${sessionId}/lastaction`,
           'PATCH',
           JSON.stringify({ lastAction: new Date() }),
           { 'Content-Type': 'application/json' }
@@ -237,7 +240,7 @@ function QuizSession() {
     if (sessionId) {
       try {
         await sendRequest(
-          `http://localhost:5000/api/quizsessions/${sessionId}/currentquestion`,
+          `${API_BASE}/api/quizsessions/${sessionId}/currentquestion`,
           'PATCH',
           JSON.stringify({ currentQuestion: currentIdx }),
           { 'Content-Type': 'application/json' }
@@ -259,7 +262,7 @@ function QuizSession() {
     if (sessionId) {
       try {
         await sendRequest(
-          `http://localhost:5000/api/quizsessions/${sessionId}/end`,
+          `${API_BASE}/api/quizsessions/${sessionId}/end`,
           'PATCH'
         );
         // Optional: Weiterleitung oder Abschlussanzeige
