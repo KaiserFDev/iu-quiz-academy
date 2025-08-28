@@ -21,12 +21,13 @@ html, body, #root {
 }
 
 .login-page {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Box oben ausrichten */
   background: linear-gradient(135deg, #FFFDE7, #FFF3C4, #FFE082);
   font-family: 'Open Sans', sans-serif;
+  padding-top: 40px; /* Optional: etwas Abstand nach oben */
 }
 
 .login-box {

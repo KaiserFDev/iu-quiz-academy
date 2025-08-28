@@ -64,7 +64,7 @@ function QuizSession() {
         // Session laden, falls vorhanden
         try {
           const data = await sendRequest(
-            `http://localhost:5000/api/quizsessions/${sessionId}`
+            `${API_BASE}/api/quizsessions/${sessionId}`
           );
           setScore(data.score);
           setQuizRoomId(data.quizRoomId);
