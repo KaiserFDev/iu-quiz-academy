@@ -7,6 +7,10 @@ import './SuccessPage.css';
 import QuizFinished from '../assets/images/QuizFinished.png';
 import TAGS from '../assets/components/TAGS';
 
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
+
 const SuccessPage = () => {
   const location = useLocation();
   const sessionId = location.state?.sessionId;
@@ -21,7 +25,7 @@ const SuccessPage = () => {
   useEffect(() => {
     async function fetchSession() {
       if (!sessionId) return;
-      const session = await sendRequest(`http://localhost:5000/api/quizsessions/${sessionId}`);
+      const session = await sendRequest(`${API_BASE}/api/quizsessions/${sessionId}`);
       if (!session) return;
       setSessionData(session);
 
@@ -29,7 +33,7 @@ const SuccessPage = () => {
       const quizRoomId = session.quizRoomId || session.quizRoom?.id;
 
       const scores = await sendRequest(
-        `http://localhost:5000/api/quizsessions/userroom?userId=${userId}&quizRoomId=${quizRoomId}`
+        `${API_BASE}/api/quizsessions/userroom?userId=${userId}&quizRoomId=${quizRoomId}`
       );
       const allScores = scores.map(s => s.score);
       setBestScore(Math.max(...allScores));
