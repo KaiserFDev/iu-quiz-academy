@@ -22,12 +22,13 @@ html, body, #root {
 
 .login-page {
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Box oben ausrichten */
+  align-items: center; /* Box vertikal und horizontal zentrieren */
   background: linear-gradient(135deg, #FFFDE7, #FFF3C4, #FFE082);
   font-family: 'Open Sans', sans-serif;
-  padding-top: 40px; /* Optional: etwas Abstand nach oben */
+  padding: 0;
 }
 
 .login-box {
@@ -38,6 +39,7 @@ html, body, #root {
   max-width: 400px;
   width: 90%;
   text-align: center;
+  scroll-margin-top: 100px; /* für smooth scroll falls Header o.ä. */
 }
 
 .login-box img {

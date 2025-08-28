@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import QuizAcademyLogo from '../assets/images/QuizAcademylogoBLANK.png'; // Importiere das Logo
 import './LoginPage.css';
 
 function LoginPage() {
+  // Ref für die LoginBox
+  const loginBoxRef = useRef(null);
 // States zur Verwaltung der Eingaben und Fehlermeldung
 const [username, setUsername] = useState(''); // Benutzername aus dem Eingabefeld
 const [password, setPassword] = useState(''); // Passwort aus dem Eingabefeld
@@ -50,9 +52,16 @@ const handleLogin = async (e) => {
   }
 };
 
-return (
-  <div className="login-page">
-    <div className="login-box">
+  useEffect(() => {
+    // Automatisch zur LoginBox scrollen (smooth)
+    if (loginBoxRef.current) {
+      loginBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
+
+  return (
+    <div className="login-page">
+      <div className="login-box" ref={loginBoxRef}>
       {/* Logo der Quiz-Academy */}
       <img src={QuizAcademyLogo} alt="IU-Quiz-Academy Logo" />
 
