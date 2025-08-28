@@ -32,9 +32,11 @@ const SuccessPage = () => {
       const userId = session.userId || session.user?.id;
       const quizRoomId = session.quizRoomId || session.quizRoom?.id;
 
-      const scores = await sendRequest(
-        `${API_BASE}/api/quizsessions/userroom?userId=${userId}&quizRoomId=${quizRoomId}`
-      );
+      let url = `${API_BASE}/api/quizsessions/userroom?quizRoomId=${quizRoomId}`;
+      if (!isPublicQuizRoom) {
+        url += `&userId=${userId}`;
+      }
+      const scores = await sendRequest(url);
       const allScores = scores.map(s => s.score);
       setBestScore(Math.max(...allScores));
       setWorstScore(Math.min(...allScores));
@@ -69,7 +71,7 @@ const SuccessPage = () => {
   // Tag-Komponenten für die Anzeige (nur SuccessPage größer/bold)
   const tagStyle = { fontSize: '1.25rem', fontWeight: 'bold' };
   const scoreTag = <TAGS status="High" text={`💯Dein Score: ${currentScoreDisplay}`} style={tagStyle} />;
-  const bestScoreTag = <TAGS status="Positive" text={`Bester Score: ${bestScore}`} style={tagStyle} />;
+  const bestScoreTag = <TAGS status="Positive" text={`🥇Bester Score: ${bestScore}`} style={tagStyle} />;
   const worstScoreTag = <TAGS status="Negative" text={`🥉Schlechtester Score: ${worstScore}`} style={tagStyle} />;
 
   return (
