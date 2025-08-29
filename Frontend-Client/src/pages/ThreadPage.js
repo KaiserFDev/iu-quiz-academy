@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom'; // Hook, um URL-Parameter zu lesen
 import NavBar from '../assets/components/NavBar';
 import Header from '../assets/components/Header';
 
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
+
 function ThreadPage() {
 // Lese die Thread-ID aus der URL (z.B. /community/thread/:threadId)
 const { threadId } = useParams();
@@ -30,13 +33,13 @@ async function fetchThreadAndPosts() {
     setLoading(true); // Ladezustand aktivieren
 
     // API-Aufruf, um Thread-Details zu laden
-    const threadRes = await fetch(`/api/forum-threads/${threadId}`);
+    const threadRes = await fetch(`${API_BASE}/api/forum-threads/${threadId}`);
     if (!threadRes.ok) throw new Error('Thread nicht gefunden');
     const threadData = await threadRes.json();
     setThread(threadData); // Thread-Daten speichern
 
     // API-Aufruf, um Posts zum Thread zu laden
-    const postsRes = await fetch(`/api/forum-posts/${threadId}`);
+   const postsRes = await fetch(`${API_BASE}/api/forum-posts/${threadId}`);
     if (!postsRes.ok) throw new Error('Fehler beim Laden der Posts');
     const postsData = await postsRes.json();
     setPosts(postsData); // Posts speichern
@@ -59,7 +62,7 @@ setPosting(true); // Disable Button/Eingabe während Absenden
 
 try {
   // POST-Request an API zum Erstellen eines neuen Posts
-  const res = await fetch('/api/forum-posts', {
+  const res = await fetch(`${API_BASE}/api/forum-posts`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ thread_id: threadId, user_id: userId, content: newPostContent }),

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './CommunityPage.css';
 import { Link } from 'react-router-dom';
-
 import NavBar from '../assets/components/NavBar';
 import Header from '../assets/components/Header';
 import TAGS from '../assets/components/TAGS';
+
+// API-Basis-URL aus Umgebungsvariable
+const API_BASE = process.env.REACT_APP_API_URL;
 
 function CommunityPage() {
   // State für die Liste der Threads, Ladezustand, Fehler und neuen Thread-Titel
@@ -21,7 +23,7 @@ function CommunityPage() {
   async function fetchThreads() {
     try {
       // API-Aufruf zum Abrufen aller Forum-Threads
-      const response = await fetch('/api/forum-threads');
+      const response = await fetch(`${API_BASE}/api/forum-threads`);
       if (!response.ok) throw new Error('Fehler beim Laden der Threads');
 
       // JSON-Antwort in State speichern
@@ -51,7 +53,7 @@ function CommunityPage() {
 
     try {
       // POST-Request an Backend zum Anlegen eines neuen Threads
-      const response = await fetch('/api/forum-threads', {
+       const response = await fetch(`${API_BASE}/api/forum-threads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: newTitle, user_id: userId }), // Daten im Body senden
