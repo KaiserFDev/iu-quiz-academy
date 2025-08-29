@@ -6,7 +6,7 @@ import Header from '../assets/components/Header';
 import TAGS from '../assets/components/TAGS';
 
 // API-Basis-URL aus Umgebungsvariable
-const API_BASE = process.env.REACT_APP_API_URL;
+const API_BASE = process.env.REACT_APP_API_URL || 'https://iu-quiz-academy-backend.onrender.com';
 
 function CommunityPage() {
   // State für die Liste der Threads, Ladezustand, Fehler und neuen Thread-Titel
