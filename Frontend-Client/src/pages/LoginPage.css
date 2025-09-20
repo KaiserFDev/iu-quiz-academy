@@ -18,11 +18,9 @@ html, body, #root {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-body {
   background: linear-gradient(135deg, #FFFDE7, #FFF3C4, #FFE082);
 }
+
 
 .login-page {
   min-height: 100vh;
