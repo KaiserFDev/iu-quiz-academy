@@ -21,7 +21,7 @@ html, body, #root {
 }
 
 body {
-  padding-top: 0 !important;
+  background: linear-gradient(135deg, #FFFDE7, #FFF3C4, #FFE082);
 }
 
 .login-page {
